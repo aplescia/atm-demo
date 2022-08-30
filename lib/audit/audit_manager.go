@@ -1,14 +1,19 @@
 package audit
 
 import (
+	"bytes"
 	"fmt"
+	"log"
 )
 
 var logs = make(map[string][]string)
 
 // Record a given message for the account_id.
 func Audit(account_id string, message string) {
-	logs[account_id] = append(logs[account_id], message)
+	var buf = bytes.NewBufferString("")
+	log.SetOutput(buf)
+	log.Println(message)
+	logs[account_id] = append(logs[account_id], buf.String())
 }
 
 // For the given account_id, return a reverse order list of command history.

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -60,7 +59,7 @@ func main() {
 		} else if command == "history" {
 			var history = balance.History()
 			for i := range history {
-				log.Println(history[i])
+				fmt.Println(history[i])
 			}
 		} else if command == "balance" {
 			var result = balance.Balance()

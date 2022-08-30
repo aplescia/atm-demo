@@ -48,14 +48,15 @@ func Withdraw(amount int) string {
 	}
 	acct_balances[logged_in_acct] = acct_balances[logged_in_acct] - amtFloat
 	total_funds -= amtFloat
-	audit.Audit(logged_in_acct, fmt.Sprintf("-%f %f", amtFloat, acct_balances[logged_in_acct]))
 	if acct_balances[logged_in_acct] < 0 {
 		fmt.Printf("Amount dispensed: %f\n", amtFloat)
 		//overdraft
 		acct_balances[logged_in_acct] -= float64(5)
+		audit.Audit(logged_in_acct, fmt.Sprintf("-%f %f", amtFloat, acct_balances[logged_in_acct]))
 		return fmt.Sprintf("You have been charged an overdraft fee of $5. Current balance: %f\n", acct_balances[logged_in_acct])
 	} else {
 		fmt.Printf("Amount dispensed: %f\n", amtFloat)
+		audit.Audit(logged_in_acct, fmt.Sprintf("-%f %f", amtFloat, acct_balances[logged_in_acct]))
 		return fmt.Sprintf("Current balance: %f\n", acct_balances[logged_in_acct])
 	}
 }
