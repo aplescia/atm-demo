@@ -9,13 +9,8 @@ import (
 
 var pins = make(map[string]string)
 
-type account_login struct {
-	account_id int
-	timestamp  int64
-}
-
 // used a lib here to save some dev time
-var logged_in = ttlcache.New[string, string](
+var logged_in = ttlcache.New(
 	ttlcache.WithTTL[string, string](2 * time.Minute),
 )
 
