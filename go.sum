@@ -1,0 +1,6 @@
+github.com/imkira/go-ttlmap v2.0.0+incompatible h1:U0HKc010vF8qEQY4pvmZ7QLRSOpV4i87DKRngNHsqb0=
+github.com/imkira/go-ttlmap v2.0.0+incompatible/go.mod h1:O+nQkEb7vlapbVn5HZ3m4FItjV+qNG3GY9W/sb3l7aw=
+github.com/jellydator/ttlcache/v3 v3.0.0 h1:zmFhqrB/4sKiEiJHhtseJsNRE32IMVmJSs4++4gaQO4=
+github.com/jellydator/ttlcache/v3 v3.0.0/go.mod h1:WwTaEmcXQ3MTjOm4bsZoDFiCu/hMvNWLO1w67RXz6h4=
+golang.org/x/sync v0.0.0-20210220032951-036812b2e83c h1:5KslGYwFpkhGh+Q16bwMP3cOontH8FOep7tGV86Y7SQ=
+golang.org/x/sync v0.0.0-20210220032951-036812b2e83c/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
