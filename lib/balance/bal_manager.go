@@ -34,7 +34,6 @@ func Withdraw(amount int) string {
 		return "Your account is overdrawn! You may not make withdrawals at this time."
 	}
 	if amount%20 != 0 {
-		fmt.Println("Not a valid withdrawl amount. Amount must be a multiple of $20.")
 		return "Not a valid withdrawl amount. Amount must be a multiple of $20."
 	}
 	var amtFloat = float64(amount)
