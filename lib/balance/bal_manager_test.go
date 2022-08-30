@@ -16,6 +16,7 @@ var validLogins = map[string]string{
 }
 
 func TestBalance(t *testing.T) {
+	Reset()
 	var noLoginBalance = Balance()
 	if noLoginBalance != "Authorization required." {
 		t.Errorf("Could not handle login and balance retrieval")
@@ -26,10 +27,12 @@ func TestBalance(t *testing.T) {
 		if balance != fmt.Sprintf("Current balance: %f\n", acct_balances[k]) {
 			t.Errorf("Could not get correct balance")
 		}
+		auth.Logout()
 	}
 }
 
 func TestWithdraw(t *testing.T) {
+	Reset()
 	var noLoginBalance = Balance()
 	if noLoginBalance != "Authorization required." {
 		t.Errorf("Could not handle login and withdraw")
@@ -40,6 +43,7 @@ func TestWithdraw(t *testing.T) {
 		if balance != "Not a valid withdrawl amount. Amount must be a multiple of $20." {
 			t.Errorf("Could not handle non 20 modulo withdrawal error")
 		}
+		auth.Logout()
 	}
 	auth.Authenticate("2859459814", "7386")
 	Withdraw(1_000_000)
@@ -53,10 +57,12 @@ func TestWithdraw(t *testing.T) {
 	if noMoney != "Unable to process your withdrawal at this time." {
 		t.Errorf("Unable to handle maxed out ATM")
 	}
+	auth.Logout()
 
 }
 
 func TestDeposit(t *testing.T) {
+	Reset()
 	var noLoginDeposit = Deposit(100)
 	if noLoginDeposit != "Authorization required." {
 		t.Errorf("Could not handle login and deposit")
@@ -68,10 +74,11 @@ func TestDeposit(t *testing.T) {
 	if deposit != fmt.Sprintf("Current balance: %f\n", expected) {
 		t.Errorf("Incorrect math")
 	}
-
+	auth.Logout()
 }
 
 func TestHistory(t *testing.T) {
+	Reset()
 	auth.Authenticate("2859459814", "7386")
 	Deposit(30)
 	Withdraw(20)
@@ -84,4 +91,5 @@ func TestHistory(t *testing.T) {
 	if !strings.Contains(hist[2], "30") {
 		t.Errorf("Not in reverse order")
 	}
+	auth.Logout()
 }

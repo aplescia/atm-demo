@@ -22,6 +22,7 @@ func TestLogin(t *testing.T) {
 			t.Errorf("Failed to allow valid login")
 		}
 	}
+	Logout()
 }
 
 func TestLogout(t *testing.T) {

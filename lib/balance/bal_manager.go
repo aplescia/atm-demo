@@ -12,6 +12,11 @@ var acct_balances = make(map[string]float64)
 var total_funds float64
 
 func init() {
+	Reset()
+}
+
+// Reset initial map. Used in unit tests as well.
+func Reset() {
 	acct_balances["2859459814"] = 10.24
 	acct_balances["1434597300"] = 90000.55
 	acct_balances["7089382418"] = 0
@@ -19,6 +24,7 @@ func init() {
 	total_funds = 90000.55 + 10.24 + 0 + 60
 }
 
+// Withdraw some amount from the currently logged in account barring some specified constraints. Returns a log string.
 func Withdraw(amount int) string {
 	logged_in_acct := auth.GetLoggedInAccount()
 	if logged_in_acct == "" {
@@ -55,6 +61,7 @@ func Withdraw(amount int) string {
 	}
 }
 
+// Deposit some amount into the currently logged in account barring some specified constraints. Returns a log string.
 func Deposit(amount int) string {
 	logged_in_acct := auth.GetLoggedInAccount()
 	if logged_in_acct == "" {
@@ -66,6 +73,7 @@ func Deposit(amount int) string {
 	return fmt.Sprintf("Current balance: %f\n", acct_balances[logged_in_acct])
 }
 
+// Get the balance of the currently logged in account.
 func Balance() string {
 	logged_in_acct := auth.GetLoggedInAccount()
 	if logged_in_acct == "" {
@@ -74,6 +82,7 @@ func Balance() string {
 	return fmt.Sprintf("Current balance: %f\n", acct_balances[logged_in_acct])
 }
 
+// return the transaction history of the currently logged in account.
 func History() []string {
 	logged_in_acct := auth.GetLoggedInAccount()
 	if logged_in_acct == "" {
