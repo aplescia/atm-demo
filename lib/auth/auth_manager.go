@@ -27,27 +27,25 @@ func init() {
 	pins["2001377812"] = "5950"
 }
 
-func Authenticate(account_id string, pin string) bool {
+func Authenticate(account_id string, pin string) string {
 	if pins[account_id] == "" {
-		fmt.Printf("User Not Found : %s\n", account_id)
-		return false
+		return "Authorization failed."
 	}
 	if pins[account_id] == pin {
 		//set logged in account
-		fmt.Println("User Logged In, Session Valid For 2 Minutes...")
-		logged_in.Set("logged_in_acct", pin, ttlcache.DefaultTTL)
-		return true
+		logged_in.Set("logged_in_acct", account_id, ttlcache.DefaultTTL)
+		return fmt.Sprintf("%s successfully authorized.", account_id)
 	}
-	return false
+	return "Authorization failed."
 }
 
-func Logout(account_id string) {
-	if logged_in.Get("logged_in_acct").Value() == "" {
-		fmt.Println("No account is currently authorized.")
-		return
+func Logout() string {
+	if GetLoggedInAccount() == "" {
+		return "No account is currently authorized."
 	}
+	var logged_in_acct = GetLoggedInAccount()
 	logged_in.Set("logged_in_acct", "", ttlcache.DefaultTTL)
-	fmt.Printf("Account %s logged out.\n", account_id)
+	return fmt.Sprintf("Account %s logged out.\n", logged_in_acct)
 }
 
 func GetLoggedInAccount() string {
