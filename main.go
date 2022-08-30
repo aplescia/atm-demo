@@ -5,10 +5,26 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/aplescia/atm-demo/lib/auth"
 	"github.com/aplescia/atm-demo/lib/balance"
 )
+
+func commandIsValid(command string) bool {
+	command = strings.TrimSpace(command)
+	command = strings.Trim(command, "\r")
+	command = strings.Trim(command, "\n")
+	var cmds = []string{
+		"end", "authorize", "withdraw", "deposit", "history", "balance", "logout",
+	}
+	for _, c := range cmds {
+		if c == command {
+			return true
+		}
+	}
+	return false
+}
 
 func main() {
 	fmt.Println("ATM initiated...")
@@ -16,9 +32,11 @@ func main() {
 		var command string
 		var input string    //optional
 		var inputTwo string //optional
-		fmt.Scanf("%s %s %s", &command, &input, &inputTwo)
+		fmt.Scanf("%s %s %s\n", &command, &input, &inputTwo)
 		//only check for valid commands
-		if command == "exit" {
+		if !commandIsValid(command) {
+			fmt.Println("Command is not valid!")
+		} else if command == "end" {
 			os.Exit(3)
 		} else if command == "authorize" {
 			var result = auth.Authenticate(input, inputTwo)
